@@ -25,6 +25,16 @@ class User
         $this->userBirthdate = $birthdate;
     }
 
+    public function DumpData()
+    {
+        echo "Id is: ".$this->getUserId()."<br />";
+        echo "Nickname is: ".$this->getUserNickname()."<br />";
+        echo "Name is: ".$this->getUserName()."<br />";
+        echo "First name is: ".$this->getUserFirstName()."<br />";
+        echo "Email is: ".$this->getUserEmail()."<br />";
+        echo "Birthdate is: ".$this->getUserBirthdate()."<br /><br />";
+    }
+
     /**
      * @return mixed
      */
