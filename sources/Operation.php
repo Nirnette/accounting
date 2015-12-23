@@ -16,6 +16,10 @@ class Operation
 
     public function __construct($id, $date, $amount, $description)
     {
+        $this->operationId = $id;
+        $this->operationDate = $date;
+        $this->operationAmount = $amount;
+        $this->operationDescription = $description;
 
     }
 

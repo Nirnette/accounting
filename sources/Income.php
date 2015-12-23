@@ -5,6 +5,7 @@
  * Date: 22/12/2015
  * Time: 11:39
  */
+require_once 'Operation.php';
 
 class Income extends Operation
 {
@@ -33,5 +34,12 @@ class Income extends Operation
         $this->incomeType = $incomeType;
     }
 
-
+    public function DumpData()
+    {
+        echo "Id is: ".$this->getOperationId()."<br />";
+        echo "Date is: ".$this->getOperationDate()."<br />";
+        echo "Amount is: ".$this->getOperationAmount()."<br />";
+        echo "Type is: ".$this->getIncomeType()."<br />";
+        echo "Description is: ".$this->getOperationDescription()."<br /><br />";
+    }
 }

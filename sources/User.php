@@ -121,5 +121,5 @@ class User
         $this->userBirthdate = $userBirthdate;
     }
 
-    
+
 }

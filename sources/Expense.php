@@ -36,5 +36,14 @@ class Expense extends Operation
         $this->expenseType = $expenseType;
     }
 
+    public function DumpData()
+    {
+        echo "Id is: ".$this->getOperationId()."<br />";
+        echo "Date is: ".$this->getOperationDate()."<br />";
+        echo "Amount is: ".$this->getOperationAmount()."<br />";
+        echo "Type is: ".$this->getExpenseType()."<br />";
+        echo "Description is: ".$this->getOperationDescription()."<br /><br />";
+    }
+
 
 }
