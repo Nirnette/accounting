@@ -6,6 +6,12 @@
  * Time: 15:12
  */
 
+require_once '../sources/DatabaseManager.php';
+
+$newusr = new DatabaseManager();
+
+
+
 if (isset($_POST['nickname']) && !empty($_POST['nickname']))
 {
     $nickname = $_POST['nickname'];
@@ -53,3 +59,15 @@ if (isset($_POST['birthdate']) && !empty($_POST['birthdate']))
 }
 else
     echo "Birthdate is missing <br/>";
+
+$newusr->register($nickname, $password, $name, $firstname, $email, $birthdate);
+
+$res = $newusr;
+if ($res == false)
+{
+    echo "Vous n'avez pas pu vous enregistrer";
+}
+else
+{
+    echo "Vous êtes bien enregistré";
+}

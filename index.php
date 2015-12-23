@@ -27,8 +27,8 @@ require_once 'sources/DatabaseManager.php';
     <label for="nickname">NickName </label>
     <input type="text" name="nickname" id="nickname" />
     <br />
-    <label for="pwd">pwd </label>
-    <input type="text" name="pwd" id="pwd" />
+    <label for="password">password </label>
+    <input type="text" name="password" id="password" />
     <br />
     <label for="name">Name</label>
     <input type="text" name="name" id="name" />
