@@ -27,6 +27,7 @@ class User
 
     public function DumpData()
     {
+        echo "Infos User : <br/>";
         echo "Id is: ".$this->getUserId()."<br />";
         echo "Nickname is: ".$this->getUserNickname()."<br />";
         echo "Name is: ".$this->getUserName()."<br />";

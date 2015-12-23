@@ -11,44 +11,8 @@ require_once 'sources/Income.php';
 require_once 'sources/Operation.php';
 require_once 'sources/User.php';
 require_once 'sources/UserSession.php';
+require_once 'sources/DatabaseManager.php';
 
-
-$manager = new IncomeManager();
-
-$manager->addIncome(1,'22/12/15', 30, 'Loisir', 'Sortie entre amis' );
-$manager->addIncome(2,'22/12/15', 30, 'Loisir', 'Sortie entre amis' );
-$manager->addIncome(3,'22/12/15', 30, 'Loisir', 'Sortie entre amis' );
-$manager->addIncome(4,'22/12/15', 30, 'Loisir', 'Sortie entre amis' );
-
-
-
-foreach ($manager->getInc() as $inc)
-{
-    echo $inc->getOperationId() . "</br>";
-}
-
-
-$manager->deleteIncome(3);
-
-foreach ($manager->getInc() as $inc)
-{
-    echo $inc->getOperationId() . "</br>";
-}
-
-$manager->editIncome(4, '23/12/2015', 25, 'courses', 'nourriture');
-
-$manager->selectIncome(4)->DumpData();
-
-$manager->DumpData();
-
-$usr = new User(1, 'toto', 'KC', 'Kate', 'lachieuse_pro@hotmail.com', '13/05/1985' );
-
-$usrsess = new UserSession($usr);
-$usrsess->getIncManager()->addIncome(1,'22/12/15', 200, 'Salaire', '');
-$usrsess->getExpManager()->addExpense(1,'22/12/15', 30, 'Loisir', 'Sortie entre amis');
-
-
-$usrsess->DumpData();
 ?>
 
 <html>
@@ -58,7 +22,37 @@ $usrsess->DumpData();
     </title>
 </head>
 <body>
-Site en construction.
+
+<form method="post" action="actions/Register.php">
+    <label for="nickname">NickName </label>
+    <input type="text" name="nickname" id="nickname" />
+    <br />
+    <label for="pwd">pwd </label>
+    <input type="text" name="pwd" id="pwd" />
+    <br />
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" />
+    <br />
+    <label for="firstname">FirstName</label>
+    <input type="text" name="firstname" id="firstname" />
+    <br />
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" />
+    <br />
+    <label for="birthdate">Birthdate</label>
+    <input type="date" name="birthdate" id="birthdate" />
+    <br />
+    <input type="submit">
+</form>
+<br><br>
+
+<form method="post">
+    <input type="text" name="logNickname">
+    <input type="text" name="logPassword">
+    <input type="submit">
+</form>
+
+
 </body>
 
 

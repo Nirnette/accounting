@@ -47,6 +47,7 @@ class IncomeManager
     {
         foreach( $this->inc as $i)
         {
+            echo "Income infos : <br/>";
             $i->DumpData();
         }
     }

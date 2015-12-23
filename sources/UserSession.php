@@ -25,9 +25,9 @@ class UserSession
 
     public function DumpData()
     {
-        echo 'User is : ' . $this->user->DumpData() . '<br/>';
-        echo 'Expense contains : ' . $this->expManager->DumpData() . '<br/>';
-        echo 'Income contains : ' . $this->incManager->DumpData() . '<br/><br/>';
+        $this->user->DumpData();
+        $this->expManager->DumpData();
+        $this->incManager->DumpData();
     }
 
     /**

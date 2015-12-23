@@ -46,6 +46,7 @@ class ExpenseManager
     {
         foreach( $this->exp as $e)
         {
+            echo "Expense infos : <br/>";
             $e->DumpData();
         }
     }
