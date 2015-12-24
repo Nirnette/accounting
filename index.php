@@ -52,7 +52,6 @@ require_once 'sources/DatabaseManager.php';
     <input type="submit">
 </form>
 
-
 </body>
 
 
