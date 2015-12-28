@@ -14,13 +14,15 @@ class UserSession
 {
     protected    $user,
                  $expManager,
-                 $incManager;
+                 $incManager,
+                 $dbmanager;
 
     public function __construct (User $user)
     {
         $this->user = $user;
         $this->expManager = new ExpenseManager();
         $this->incManager = new IncomeManager();
+        $this->dbmanager = new DatabaseManager();
     }
 
     public function DumpData()
@@ -76,6 +78,22 @@ class UserSession
     public function setIncManager($incManager)
     {
         $this->incManager = $incManager;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDbmanager()
+    {
+        return $this->dbmanager;
+    }
+
+    /**
+     * @param mixed $dbmanager
+     */
+    public function setDbmanager($dbmanager)
+    {
+        $this->dbmanager = $dbmanager;
     }
 
 

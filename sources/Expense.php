@@ -5,6 +5,7 @@
  * Date: 22/12/2015
  * Time: 11:31
  */
+require_once 'Operation.php';
 
 class Expense extends Operation
 {

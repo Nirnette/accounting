@@ -5,7 +5,13 @@
  * Date: 23/12/2015
  * Time: 15:12
  */
-
+require_once '../sources/ExpenseManager.php';
+require_once '../sources/Expense.php';
+require_once '../sources/IncomeManager.php';
+require_once '../sources/Income.php';
+require_once '../sources/Operation.php';
+require_once '../sources/User.php';
+require_once '../sources/UserSession.php';
 require_once '../sources/DatabaseManager.php';
 $nbfields = 0;
 
@@ -66,19 +72,21 @@ else
     echo "Birthdate is missing <br/>";
 
 
-if ($nbfields != 6)
+if ($nbfields == 6)
 {
-    echo "Vous n'avez pas rempli tous les champs, merci de recommencer.";
-    return false;
-}
-else
-{
-    $newusr = new DatabaseManager();
+    $usr = new User($nickname, $password, $name, $firstname, $email, $birthdate);
+    $newusr = new UserSession($usr);
 
-    if ($newusr->register($nickname, $password, $name, $firstname, $email, $birthdate) == false) {
+    if ($newusr->getDbmanager()->register($nickname, $password, $name, $firstname, $email, $birthdate) == false) {
         echo "Vous n'avez pas pu vous enregistrer";
     } else
     {
         echo "Vous êtes bien enregistré";
+        $_SESSION['nickname'] = serialize ($newusr);
     }
+}
+else
+{
+    echo "Vous n'avez pas rempli tous les champs, merci de recommencer.";
+    return false;
 }

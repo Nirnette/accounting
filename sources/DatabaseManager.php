@@ -52,20 +52,23 @@ class DatabaseManager
     }
 
     public function login($nickname, $password){
-        $bool = false;
         $pdo = $this->connect();
         if ($pdo != false){
-            $sql ="SELECT * from accountingusers where nickname=:nickname and password=:password";
+            $sql ="SELECT * from accountingusers where userNickname=:nickname and userPassword=:password";
             $prep = $pdo->prepare($sql);
             $prep->bindParam(":nickname", $nickname,PDO::PARAM_STR);
-            $prep->bindParam(":password", md5($password), PDO::PARAM_STR);
+            $prep->bindParam(":password", $password, PDO::PARAM_STR);
             $prep->execute();
             $resultat= $prep->fetch();
+            var_dump($resultat);
             if (count($resultat) == 1 ){
-                $bool = true;
+                $prep->closeCursor();
+                return $resultat;
             }
             $prep->closeCursor();
+
+
         }
-        return $bool;
+        return null;
     }
 }

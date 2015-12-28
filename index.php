@@ -12,7 +12,7 @@ require_once 'sources/Operation.php';
 require_once 'sources/User.php';
 require_once 'sources/UserSession.php';
 require_once 'sources/DatabaseManager.php';
-
+session_start();
 ?>
 
 <html>
@@ -46,7 +46,7 @@ require_once 'sources/DatabaseManager.php';
 </form>
 <br><br>
 
-<form method="post">
+<form method="post" action="actions/Login.php">
     <input type="text" name="logNickname">
     <input type="text" name="logPassword">
     <input type="submit">
