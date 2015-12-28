@@ -5,7 +5,7 @@
  * Date: 24/12/2015
  * Time: 15:37
  */
-
+session_start();
 require_once '../sources/ExpenseManager.php';
 require_once '../sources/Expense.php';
 require_once '../sources/IncomeManager.php';
@@ -61,6 +61,7 @@ if ($nbfields == 2)
         }
 
         $_SESSION['userData'] = serialize($userCalendar);
+        header('Location: userCalendar.php');
     }
 }
 else
