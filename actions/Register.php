@@ -62,11 +62,19 @@ if (isset($_POST['email']) && !empty($_POST['email']))
 else
     echo "Email is missing <br/>";
 
-if (isset($_POST['birthdate']) && !empty($_POST['birthdate']))
+
+if (isset($_POST['birthdate']) && !empty($_POST['birthdate'] ))
 {
     $birthdate = $_POST['birthdate'];
-    echo "Birthdate: ".$birthdate.'<br/>';
-    $nbfields++;
+    if (preg_match('#^[1-3]?[0-9] / [0-1]?[0-9] / [1-2][0-9]{3}^ #', $birthdate))
+    {
+        echo "Birthdate: ".$birthdate.'<br/>';
+        $nbfields++;
+    }
+    else
+    {
+        echo "Birthdate is not in dd/mm/yyyy format, pleast try again <br/>";
+    }
 }
 else
     echo "Birthdate is missing <br/>";

@@ -40,9 +40,27 @@ else
 if ($nbfields == 2)
 {
     $logUser = new DatabaseManager();
+    $loggedUser = $logUser->login($logNickname, $logPassword);
 
-    if ($logUser->login($logNickname, $logPassword) != false) {
+    if ($loggedUser != null) {
         $_SESSION['nickname'] = $logNickname;
+        $userInfo = new User($loggedUser['userId'],$loggedUser['userNickname'],$loggedUser['userName'],$loggedUser['userFirstName'],$loggedUser['userEmail'],$loggedUser['userBirthdate']);
+
+        $userCalendar = new UserSession($userInfo);
+        $userId = $userCalendar->getUser()->getUserId();
+        $userIncomes = $userCalendar->getDbmanager()->getAllIncomes($userId);
+        $userExpenses = $userCalendar->getDbmanager()->getAllExpenses($userId);
+
+        foreach ($userIncomes as $income)
+        {
+            $userCalendar->getIncManager()->addIncome($income['incomeId'], $income['incomeDate'], $income['incomeAmount'], $income['incomeType'], $income['incomeDescription']);
+        }
+        foreach ($userExpenses as $expense)
+        {
+            $userCalendar->getExpManager()->addExpense($expense['expenseId'], $expense['expenseDate'], $expense['expenseAmount'], $expense['expenseType'], $expense['expenseDescription']);
+        }
+
+        $_SESSION['userData'] = serialize($userCalendar);
     }
 }
 else
@@ -51,3 +69,4 @@ else
     return false;
 }
 
+$userCalendar->DumpData();

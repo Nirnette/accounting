@@ -11,7 +11,20 @@
  * Tables creations :
  * CREATE TABLE accountingUsers (userId int auto_increment, userNickname varchar(40) NOT NULL, userPassword varchar(255) NOT NULL, userName varchar(60) NOT NULL, userFirstName varchar(60) NOT NULL, userEmail varchar(100) NOT NULL, userBirthdate date NOT NULL, primary key (userId));
  * CREATE TABLE accountingAccount (accountId int auto_increment, accountName varchar(60) NOT NULL, userId int NOT NULL, primary key (accountId), foreign key (userId) references accountingUsers(userId));
- * CREATE TABLE accountingExpense (expenseId int auto_increment, expenseAmount
+ * CREATE TABLE accountingExpense (expenseId int auto_increment, expenseAmount int NOT NULL, expenseType varchar(60) NOT NULL, expenseDescription varchar(255), userId int NOT NULL, primary key (expenseId), foreign key (userId) references accountingusers(userId) );
+ * CREATE TABLE accountingIncome (incomeId int auto_increment, incomeAmount int NOT NULL, incomeType varchar(60) NOT NULL, incomeDescription varchar(255), userId int NOT NULL, primary key (incomeId), foreign key (userId) references accountingusers(userId));
+ *
+ *
+ *
+ * INSERT INTO accountingIncome(incomeAmount,incomeType,incomeDescription, userId) VALUES (10, 'vente LBC', 'Warhammer', 4);
+ * INSERT INTO accountingIncome(incomeAmount,incomeType,incomeDescription, userId) VALUES (30, 'vente LBC', 'livre', 4);
+ * INSERT INTO accountingIncome(incomeAmount,incomeType,incomeDescription, userId) VALUES (20, 'vente ebay', 'Warhammer', 5);
+ * INSERT INTO accountingIncome(incomeAmount,incomeType,incomeDescription, userId) VALUES (1400, 'Salaire', 'Mensuel', 5);
+ * INSERT INTO accountingExpense(expenseAmount, expenseType, expenseDescription, userId) VALUES (10, ' repas', 'Macdo', 4);
+ * INSERT INTO accountingExpense(expenseAmount, expenseType, expenseDescription, userId) VALUES (50, ' Courses', 'nourriture de la semaine', 4);
+ * INSERT INTO accountingExpense(expenseAmount, expenseType, expenseDescription, userId) VALUES (15, ' repas', 'sushis', 5);
+ * INSERT INTO accountingExpense(expenseAmount, expenseType, expenseDescription, userId) VALUES (30, ' Loisirs', 'nouvelle souris', 5);
+ *
  */
 
 class DatabaseManager
@@ -60,8 +73,7 @@ class DatabaseManager
             $prep->bindParam(":password", $password, PDO::PARAM_STR);
             $prep->execute();
             $resultat= $prep->fetch();
-            var_dump($resultat);
-            if (count($resultat) == 1 ){
+            if ($prep->rowCount() == 1 ){
                 $prep->closeCursor();
                 return $resultat;
             }
@@ -69,6 +81,40 @@ class DatabaseManager
 
 
         }
+        return null;
+    }
+
+    public function getAllExpenses($userId)
+    {
+        $pdo = $this->connect();
+        if ($pdo != false)
+        {
+            $sql = "SELECT * FROM accountingexpense where userId = :userId";
+            $prep = $pdo->prepare($sql);
+            $prep->bindParam(':userId', $userId, PDO::PARAM_INT);
+            $prep->execute();
+            $resultat = $prep->fetchAll();
+            $prep->closeCursor();
+            return $resultat;
+        }
+
+        return null;
+    }
+
+    public function getAllIncomes($userId)
+    {
+        $pdo = $this->connect();
+        if ($pdo != false)
+        {
+            $sql = "SELECT * FROM accountingincome where userId = :userId";
+            $prep = $pdo->prepare($sql);
+            $prep->bindParam(':userId', $userId, PDO::PARAM_INT);
+            $prep->execute();
+            $resultat = $prep->fetchAll();
+            $prep->closeCursor();
+            return $resultat;
+        }
+
         return null;
     }
 
