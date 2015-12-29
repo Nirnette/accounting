@@ -194,7 +194,7 @@ class DatabaseManager
     {
         $pdo = $this->connect();
         if ($pdo != false) {
-            $sql = "DELETE FROM accountingincome WHERE id = '" . $id . "' ";
+            $sql = "DELETE FROM accountingincome WHERE incomeId = '" . $id . "' ";
             $prep = $pdo->prepare($sql);
             $prep->execute();
             $prep->closeCursor();
@@ -205,7 +205,7 @@ class DatabaseManager
     {
         $pdo = $this->connect();
         if ($pdo != false) {
-            $sql = "DELETE FROM accountingexpense WHERE id = '" . $id . "' ";
+            $sql = "DELETE FROM accountingexpense WHERE expenseId = '" . $id . "' ";
             $prep = $pdo->prepare($sql);
             $prep->execute();
             $prep->closeCursor();
