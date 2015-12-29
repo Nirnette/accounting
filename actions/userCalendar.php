@@ -35,12 +35,17 @@ if(isset($_POST['expToDel']))
     $userData->deleteEntry('expense', $_POST['expToDel']);
     $_SESSION['userData'] = serialize($userData);
 }
+
+//edit Expense
 if(isset($_POST['expToEdit']))
 {
-    echo "Deleting expense with id: ".$_POST['expToEdit'];
+    echo "Editing expense with id: ".$_POST['expToEdit'];
 
-    $userData->editEntry('expense', $_POST['expToEdit'], $_POST['editexpdate'], $_POST['editexpamount'], $_POST['editexptype'], $_POST['editexpdesc'], $_POST['editexpdate'], $date, $amount, $type, $description, $userId);
-    $_SESSION['userData'] = serialize($userData);
+    if ( preg_match('#^[1-3]?[0-9] / [0-1]?[0-9] / [1-2][0-9]{3}^ #', $_POST['editexpdate']))
+    {
+        $userData->editEntry('expense', $_POST['expToEdit'], $_POST['editexpdate'], $_POST['editexpamount'], $_POST['editexptype'], $_POST['editexpdesc'], $_POST['editexpdate']);
+        $_SESSION['userData'] = serialize($userData);
+    }
 }
 
 
