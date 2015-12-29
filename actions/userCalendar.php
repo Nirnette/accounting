@@ -15,27 +15,29 @@ require_once '../sources/User.php';
 require_once '../sources/UserSession.php';
 require_once '../sources/DatabaseManager.php';
 
+if(!isset($_SESSION['userData']))
+{
+    header('Location: ../index.php');
+}
 
-
-    if(isset($_POST['disconnect']))
-    {
-        session_destroy();
-        header('Location : ../index.php');
-    }
+if (isset($_POST['disconnect'])) {
+    session_destroy();
+    header('Location: ../index.php');
+}
 
 var_dump($_SESSION['userData']);
 
 
-?>
+    ?>
 
 
-<html>
-<head>
+    <html>
+    <head>
 
-</head>
-<body>
-<form method="post">
-    <input type="submit" name="disconnect" value="disconnect">
-</form>
-</body>
-</html>
+    </head>
+    <body>
+    <form method="post">
+        <input type="submit" name="disconnect" value="disconnect">
+    </form>
+    </body>
+    </html>

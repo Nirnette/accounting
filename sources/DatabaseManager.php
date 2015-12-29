@@ -118,5 +118,98 @@ class DatabaseManager
         return null;
     }
 
+    public function addDbIncome($date, $amount, $type, $description, $userId)
+    {
+        $pdo = $this->connect();
+        if ($pdo != false)
+        {
+            $sql = "INSERT INTO accountingincome(incomeDate, incomeAmout, incomeType, incomeDescription, userId) VALUES ( :date, :amount, :type, :description, :userId)";
+            $prep = $pdo->prepare($sql);
+            $prep->bindValue(':date', $date);
+            $prep->bindValue(':amount', $amount, PDO::PARAM_STR);
+            $prep->bindValue(':type', $type, PDO::PARAM_STR);
+            $prep->bindValue(':description', $description, PDO::PARAM_STR);
+            $prep->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $prep->execute();
+            $prep->closeCursor();
 
+        }
+    }
+
+    public function addDbExpense($date, $amount, $type, $description, $userId)
+    {
+        $pdo = $this->connect();
+        if ($pdo != false)
+        {
+            $sql = "INSERT INTO accountingexpense(incomeDate, incomeAmout, incomeType, incomeDescription, userId) VALUES ( :date, :amount, :type, :description, :userId)";
+            $prep = $pdo->prepare($sql);
+            $prep->bindValue(':date', $date);
+            $prep->bindValue(':amount', $amount, PDO::PARAM_STR);
+            $prep->bindValue(':type', $type, PDO::PARAM_STR);
+            $prep->bindValue(':description', $description, PDO::PARAM_STR);
+            $prep->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $prep->execute();
+            $prep->closeCursor();
+
+        }
+    }
+
+    public function editDbExpense($id, $date, $amount, $type, $description)
+    {
+        $pdo = $this->connect();
+        if ($pdo != false)
+        {
+            $sql = "UPDATE accountingexpense SET expenseDate = :date, expenseAmount = :amount, expenseType = :type, expenseDescription = :description WHERE expenseId = :id";
+            $prep = $pdo->prepare($sql);
+            $prep->bindValue(':id', $id, PDO::PARAM_INT);
+            $prep->bindValue(':date', $date);
+            $prep->bindValue(':amount', $amount, PDO::PARAM_STR);
+            $prep->bindValue(':type', $type, PDO::PARAM_STR);
+            $prep->bindValue(':description', $description, PDO::PARAM_STR);
+            $prep->execute();
+            $prep->closeCursor();
+
+        }
+    }
+
+    public function editDbIncome($id, $date, $amount, $type, $description)
+    {
+        $pdo = $this->connect();
+        if ($pdo != false)
+        {
+            $sql = "UPDATE accountingincome SET incomeDate = :date, incomeAmount = :amount, incomeType = :type, incomeDescription = :description WHERE incomeId = :id";
+            $prep = $pdo->prepare($sql);
+            $prep->bindValue(':id', $id, PDO::PARAM_INT);
+            $prep->bindValue(':date', $date);
+            $prep->bindValue(':amount', $amount, PDO::PARAM_STR);
+            $prep->bindValue(':type', $type, PDO::PARAM_STR);
+            $prep->bindValue(':description', $description, PDO::PARAM_STR);
+            $prep->execute();
+            $prep->closeCursor();
+
+        }
+    }
+
+    public function deleteDbIncome($id)
+    {
+        $pdo = $this->connect();
+        if ($pdo != false) {
+            $sql = "DELETE FROM accountingincome WHERE id = '" . $id . "' ";
+            $prep = $pdo->prepare($sql);
+            $prep->execute();
+            $prep->closeCursor();
+        }
+    }
+
+        public function deleteDbExpense($id)
+    {
+        $pdo = $this->connect();
+        if ($pdo != false) {
+            $sql = "DELETE FROM accountingexpense WHERE id = '" . $id . "' ";
+            $prep = $pdo->prepare($sql);
+            $prep->execute();
+            $prep->closeCursor();
+        }
+
+    }
 }

@@ -25,6 +25,48 @@ class UserSession
         $this->dbmanager = new DatabaseManager();
     }
 
+    public function addEntry($typeEntry, $id, $date, $amount, $type, $description, $userId)
+    {
+        if($typeEntry == "expense")
+        {
+            $this->expManager->addExpense($id, $date, $amount, $type, $description, $userId);
+            $this->dbmanager->addDbExpense($date, $amount, $type, $description, $userId);
+        }
+        if($typeEntry == "income")
+        {
+            $this->incManager->addIncome($id, $date, $amount, $type, $description, $userId);
+            $this->dbmanager->addDbIncome($date, $amount, $type, $description, $userId);
+        }
+    }
+
+    public function editEntry($typeEntry, $id, $date, $amount, $type, $description, $userId)
+    {
+        if($typeEntry == "expense")
+        {
+            $this->expManager->editExpense($id, $date, $amount, $type, $description, $userId);
+            $this->dbmanager->editDbExpense($id, $date, $amount, $type, $description);
+        }
+        if($typeEntry == "income")
+        {
+            $this->incManager->editIncome($id, $date, $amount, $type, $description, $userId);
+            $this->dbmanager->editDbIncome($id, $date, $amount, $type, $description, $userId);
+        }
+    }
+
+    public function deleteEntry($typeEntry, $id)
+    {
+        if($typeEntry == "expense")
+        {
+            $this->expManager->deleteExpense($id);
+            $this->dbmanager->deleteDbExpense($id);
+        }
+        if($typeEntry == "income")
+        {
+            $this->incManager->deleteIncome($id);
+            $this->dbmanager->deleteDbIncome($id);
+        }
+    }
+
     public function DumpData()
     {
         $this->user->DumpData();
