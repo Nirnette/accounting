@@ -26,9 +26,6 @@ if (isset($_POST['disconnect'])) {
 }
 
 $userData = unserialize($_SESSION['userData']);
-$expenses = $userData->getExpManager()->getExp();
-$incomes = $userData->getIncManager()->getInc();
-
 
 // Delete Expense
 if(isset($_POST['expToDel']))
@@ -36,7 +33,30 @@ if(isset($_POST['expToDel']))
     echo "Deleting expense with id: ".$_POST['expToDel'];
 
     $userData->deleteEntry('expense', $_POST['expToDel']);
+    $_SESSION['userData'] = serialize($userData);
 }
+if(isset($_POST['expToEdit']))
+{
+    echo "Deleting expense with id: ".$_POST['expToEdit'];
+
+    $userData->editEntry('expense', $_POST['expToEdit'], $_POST['editexpdate'], $_POST['editexpamount'], $_POST['editexptype'], $_POST['editexpdesc'], $_POST['editexpdate'], $date, $amount, $type, $description, $userId);
+    $_SESSION['userData'] = serialize($userData);
+}
+
+
+
+
+
+
+
+
+
+
+//initializing data tables
+$expenses = $userData->getExpManager()->getExp();
+$incomes = $userData->getIncManager()->getInc();
+
+
 
     ?>
 
@@ -67,10 +87,19 @@ if(isset($_POST['expToDel']))
             '<td>' . $expense->getExpenseType() . '</td>' .
             '<td>' . $expense->getOperationDescription() . '</td>'.
             '<td>
-             <form method="post">
-            <input type="hidden" value="'. $expense->getOperationId().'" name="expToDel">
-        <input type="submit" name="delete" value="delete"/>
-        </form></td></tr>';
+             <tr><form method="post"><td>
+             <input type="text" name="editexpdate" value="' . $expense->getOperationDate() . '" /></td>' .
+            '<td><input type="text" name="editexpamount" value="' . $expense->getOperationAmount() . '" /></td>' .
+            '<td><input type="text" name="editexptype" value="' . $expense->getExpenseType() . '" /></td>' .
+            '<td><input type="text" name="editexpdesc" value="' . $expense->getOperationDescription() . '" /></td>'.
+            '<td>
+                     <input type="hidden" value="'. $expense->getOperationId().'" name="expToEdit">
+                     <input type="submit" name="edit" value="edit"/>
+                     </td></form>
+                     <form method="post"><td>
+                     <input type="hidden" value="'. $expense->getOperationId().'" name="expToDel">
+                     <input type="submit" name="delete" value="delete"/>
+                     </td></form></tr>';
     }
     ?>
         </table><br>

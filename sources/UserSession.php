@@ -39,17 +39,17 @@ class UserSession
         }
     }
 
-    public function editEntry($typeEntry, $id, $date, $amount, $type, $description, $userId)
+    public function editEntry($typeEntry, $id, $date, $amount, $type, $description)
     {
         if($typeEntry == "expense")
         {
-            $this->expManager->editExpense($id, $date, $amount, $type, $description, $userId);
+            $this->expManager->editExpense($id, $date, $amount, $type, $description);
             $this->dbmanager->editDbExpense($id, $date, $amount, $type, $description);
         }
         if($typeEntry == "income")
         {
-            $this->incManager->editIncome($id, $date, $amount, $type, $description, $userId);
-            $this->dbmanager->editDbIncome($id, $date, $amount, $type, $description, $userId);
+            $this->incManager->editIncome($id, $date, $amount, $type, $description);
+            $this->dbmanager->editDbIncome($id, $date, $amount, $type, $description);
         }
     }
 
